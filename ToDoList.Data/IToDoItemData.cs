@@ -10,5 +10,6 @@ namespace ToDoList.Data
         IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null);
         void Add(ToDoItem newItem);
         void Update(ToDoItem updatedItem);
+        int GetCountOfIncompleteItems();
     }
 }

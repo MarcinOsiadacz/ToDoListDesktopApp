@@ -44,11 +44,11 @@
                         <DataGridTextColumn Header="Task" 
                                             Binding="{Binding Name}">
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Priority" 
-                                            Binding="{Binding Priority}">
-                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Due" 
                                             Binding="{Binding DueDate}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Priority" 
+                                            Binding="{Binding Priority}">
                         </DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>

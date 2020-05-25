@@ -24,7 +24,7 @@ namespace ToDoList
     {
         InMemoryToDoListData data = new InMemoryToDoListData();
 
-        private static readonly int _maxRecordsPerPage = 10;
+        private static readonly int _maxItemsPerPage = 10;
         public int CurrentPage { get; private set; }
         public int LastPage { get; private set; }
 
@@ -32,9 +32,9 @@ namespace ToDoList
         {
             InitializeComponent();
 
-            ToDoItemsDataGrid.ItemsSource = data.GetIncompleteItemsByName();        
             PriorityListBox.ItemsSource = Enum.GetValues(typeof(Priority));
-
+            RefreshToDoItemsDataGrid();
+            
             CurrentPage = 1;
 
             AddItemCommand = new RelayCommand(obj => AddItem(), obj =>
@@ -43,10 +43,20 @@ namespace ToDoList
             );
             AddItemButton.Command = AddItemCommand;
 
-            MarkCompleteCommand = new RelayCommand(obj => MarkComplete(), obj =>
-               ToDoItemsDataGrid.SelectedItem != null
+            MarkCompleteCommand = new RelayCommand(obj => MarkComplete(), obj => 
+                ToDoItemsDataGrid.SelectedItem != null
             );
             MarkAsCompletedButton.Command = MarkCompleteCommand;
+
+            PreviousPageCommand = new RelayCommand(obj => PreviousPage(), obj => 
+                CurrentPage - 1 > 0
+            );
+            PreviousButton.Command = PreviousPageCommand;
+
+            NextPageCommand = new RelayCommand(obj => NextPage(), obj =>
+                CurrentPage < LastPage
+            );
+            NextButton.Command = NextPageCommand;
         }
 
         RelayCommand AddItemCommand;
@@ -60,7 +70,7 @@ namespace ToDoList
                 DueDate = DueDatePicker.SelectedDate
             });
 
-            ToDoItemsDataGrid.ItemsSource = data.GetIncompleteItemsByName();
+            RefreshToDoItemsDataGrid();
         }
 
         RelayCommand MarkCompleteCommand;
@@ -70,7 +80,35 @@ namespace ToDoList
             item.IsCompleted = true;
             data.Update(item);
 
-            ToDoItemsDataGrid.ItemsSource = data.GetIncompleteItemsByName();
+            RefreshToDoItemsDataGrid();
+        }
+
+        RelayCommand PreviousPageCommand;
+        private void PreviousPage()
+        {
+            CurrentPage--;
+            RefreshToDoItemsDataGrid();
+        }
+
+        RelayCommand NextPageCommand;
+        private void NextPage()
+        {
+            CurrentPage++;
+            RefreshToDoItemsDataGrid();
+        }
+
+        private int CalculateLastPage()
+        {
+            return (int)Math.Ceiling(data.GetCountOfIncompleteItems() / (double)_maxItemsPerPage);
+        }
+
+        private void RefreshToDoItemsDataGrid()
+        {
+            LastPage = CalculateLastPage();
+
+            ToDoItemsDataGrid.ItemsSource = data.GetIncompleteItemsByName()
+                    .Skip((CurrentPage - 1) * _maxItemsPerPage)
+                    .Take(_maxItemsPerPage);
         }
     }
 }
