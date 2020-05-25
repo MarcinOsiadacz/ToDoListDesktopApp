@@ -7,7 +7,7 @@ namespace ToDoList.Data
 {
     public interface IToDoItemData
     {
-        IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null);
+        IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null, bool state = false);
         void Add(ToDoItem newItem);
         void Update(ToDoItem updatedItem);
         int GetCountOfIncompleteItems();

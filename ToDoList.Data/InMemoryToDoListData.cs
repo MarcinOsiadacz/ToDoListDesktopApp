@@ -79,11 +79,11 @@ namespace ToDoList.Data
                     .Count();
         }
 
-        public IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null)
+        public IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null, bool state = false)
         {
             return from i in toDoItems
                    where (string.IsNullOrEmpty(name) || i.Name.Contains(name)) &&
-                   !(i.IsCompleted)
+                   i.IsCompleted == state
                    orderby i.Name
                    select i;
         }
