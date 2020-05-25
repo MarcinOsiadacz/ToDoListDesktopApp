@@ -4,19 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{15F0558D-5BB1-476F-86D0-416B6BEE9C06}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>ToDoList</RootNamespace>
-    <AssemblyName>ToDoList</AssemblyName>
+    <ProjectGuid>{605D892D-DEC2-4AA0-A2FF-CF57FEC7CF4E}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>Custom.Controls</RootNamespace>
+    <AssemblyName>Custom.Controls</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -51,25 +48,19 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="CompletionScreen.xaml">
       <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="RelayCommand.cs" />
-    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompletionScreen.xaml.cs">
+      <DependentUpon>CompletionScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -91,23 +82,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Custom.Controls\Custom.Controls.csproj">
-      <Project>{605d892d-dec2-4aa0-a2ff-cf57fec7cf4e}</Project>
-      <Name>Custom.Controls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ToDoList.Data\ToDoList.Data.csproj">
-      <Project>{5c4042eb-2b61-4a5e-b871-c43bc4f08dec}</Project>
-      <Name>ToDoList.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ToDoListLogic\ToDoList.Logic.csproj">
-      <Project>{885834fd-7318-4878-bc52-18640e85c86c}</Project>
-      <Name>ToDoList.Logic</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
