@@ -14,6 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,6 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -101,11 +104,11 @@
       <Name>Custom.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\ToDoList.Data\ToDoList.Data.csproj">
-      <Project>{5c4042eb-2b61-4a5e-b871-c43bc4f08dec}</Project>
+      <Project>{ca49c787-09ce-452e-9682-96baac5ab00a}</Project>
       <Name>ToDoList.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ToDoListLogic\ToDoList.Logic.csproj">
-      <Project>{885834fd-7318-4878-bc52-18640e85c86c}</Project>
+    <ProjectReference Include="..\ToDoList.Logic\ToDoList.Logic.csproj">
+      <Project>{9a99ebe6-c5f8-4f76-bd59-41314f9e391f}</Project>
       <Name>ToDoList.Logic</Name>
     </ProjectReference>
   </ItemGroup>

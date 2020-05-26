@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA49C787-09CE-452E-9682-96BAAC5AB00A}</ProjectGuid>
+    <ProjectGuid>{9A99EBE6-C5F8-4F76-BD59-41314F9E391F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ToDoList.Data</RootNamespace>
-    <AssemblyName>ToDoList.Data</AssemblyName>
+    <RootNamespace>ToDoList.Logic</RootNamespace>
+    <AssemblyName>ToDoList.Logic</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,15 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InMemoryToDoListData.cs" />
-    <Compile Include="IToDoItemData.cs" />
+    <Compile Include="Priority.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ToDoList.Logic\ToDoList.Logic.csproj">
-      <Project>{9a99ebe6-c5f8-4f76-bd59-41314f9e391f}</Project>
-      <Name>ToDoList.Logic</Name>
-    </ProjectReference>
+    <Compile Include="ToDoItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
