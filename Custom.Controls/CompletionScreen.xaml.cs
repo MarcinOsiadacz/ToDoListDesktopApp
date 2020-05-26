@@ -24,5 +24,10 @@ namespace Custom.Controls
         {
             InitializeComponent();
         }
+
+        private void MarkCompleteStoryboard_Completed(object sender, EventArgs e)
+        {
+            this.Visibility = Visibility.Hidden;
+        }
     }
 }

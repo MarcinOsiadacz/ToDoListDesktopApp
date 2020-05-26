@@ -83,7 +83,7 @@
                   Header="Add a New Task"
                   Grid.Column="1">
                 <StackPanel>
-                    <Label 
+                    <Label
                     x:Name="NameLabel"
                     Content="Describe your task:">
                     </Label>
@@ -106,7 +106,8 @@
             </GroupBox>
         </Grid>
         <customControls:CompletionScreen x:Name="CompletionScreen"
-                                         Visibility="Hidden">
+                                         Visibility="Hidden" 
+                                         IsVisibleChanged="CompletionScreen_IsVisibleChanged">
         </customControls:CompletionScreen>
     </Grid>
 </Window>

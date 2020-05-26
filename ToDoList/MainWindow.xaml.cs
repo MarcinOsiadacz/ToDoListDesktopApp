@@ -9,6 +9,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -81,6 +82,8 @@ namespace ToDoList
             data.Update(item);
 
             RefreshToDoItemsDataGrid();
+
+            CompletionScreen.Visibility = Visibility.Visible;
         }
 
         RelayCommand PreviousPageCommand;
@@ -109,6 +112,14 @@ namespace ToDoList
             ToDoItemsDataGrid.ItemsSource = data.GetIncompleteItemsByName()
                     .Skip((CurrentPage - 1) * _maxItemsPerPage)
                     .Take(_maxItemsPerPage);
+        }
+
+        private void CompletionScreen_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue)
+            {
+                ((Storyboard)CompletionScreen.Resources["MarkCompleteStoryboard"]).Begin();
+            }
         }
     }
 }
