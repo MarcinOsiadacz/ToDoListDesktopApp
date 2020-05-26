@@ -17,7 +17,7 @@ namespace ToDoList.Data
                 new ToDoItem
                 {
                     Id = 1,
-                    Name = "Test 1",
+                    ItemName = "Test 1",
                     DueDate = null,
                     Priority = Priority.Medium,
                     IsCompleted = false,
@@ -25,7 +25,7 @@ namespace ToDoList.Data
                 new ToDoItem
                 {
                     Id = 2,
-                    Name = "Test 2",
+                    ItemName = "Test 2",
                     DueDate = null,
                     Priority = Priority.Low,
                     IsCompleted = false,
@@ -33,7 +33,7 @@ namespace ToDoList.Data
                 new ToDoItem
                 {
                     Id = 3,
-                    Name = "Test 3",
+                    ItemName = "Test 3",
                     DueDate = DateTime.Now,
                     Priority = Priority.High,
                     IsCompleted = false,
@@ -41,7 +41,7 @@ namespace ToDoList.Data
                 new ToDoItem
                 {
                     Id = 4,
-                    Name = "Test 3",
+                    ItemName = "Test 3",
                     DueDate = DateTime.Now,
                     Priority = Priority.High,
                     IsCompleted = false,
@@ -49,15 +49,15 @@ namespace ToDoList.Data
                 new ToDoItem
                 {
                     Id = 5,
-                    Name = "Test 3",
+                    ItemName = "Test 3",
                     DueDate = DateTime.Now,
                     Priority = Priority.High,
                     IsCompleted = false,
                 },
                 new ToDoItem
                 {
-                    Id = 6,
-                    Name = "Test 3",
+                    //Id = 6,
+                    ItemName = "Test 3",
                     DueDate = DateTime.Now,
                     Priority = Priority.High,
                     IsCompleted = false,
@@ -71,6 +71,11 @@ namespace ToDoList.Data
             newItem.Id = toDoItems.Max(i => i.Id) + 1;
         }
 
+        public int Commit()
+        {
+            return 0;
+        }
+
         public int GetCountOfIncompleteItems()
         {
             return (from i in toDoItems 
@@ -82,9 +87,9 @@ namespace ToDoList.Data
         public IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null, bool state = false)
         {
             return from i in toDoItems
-                   where (string.IsNullOrEmpty(name) || i.Name.Contains(name)) &&
+                   where (string.IsNullOrEmpty(name) || i.ItemName.Contains(name)) &&
                    i.IsCompleted == state
-                   orderby i.Name
+                   orderby i.ItemName
                    select i;
         }
 
@@ -94,7 +99,7 @@ namespace ToDoList.Data
             
             if(item != null)
             {
-                item.Name = updatedItem.Name;
+                item.ItemName = updatedItem.ItemName;
                 item.DueDate = updatedItem.DueDate;
                 item.Priority = updatedItem.Priority;
                 item.IsCompleted = updatedItem.IsCompleted;

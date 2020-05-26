@@ -44,7 +44,7 @@
                           AutoGenerateColumns="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Task" 
-                                            Binding="{Binding Name}">
+                                            Binding="{Binding ItemName}">
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Due" 
                                             Binding="{Binding DueDate}">

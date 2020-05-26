@@ -7,9 +7,9 @@ namespace ToDoListLogic
     public class ToDoItem
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string ItemName { get; set; }
         public DateTime? DueDate { get; set; }
-        public Priority Priority { get; set; }
+        public string Priority { get; set; }
         public bool IsCompleted { get; set; }
     }
 }
