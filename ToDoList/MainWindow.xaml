@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ToDoList"
         xmlns:customControls="clr-namespace:Custom.Controls;assembly=Custom.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="480" Width="800" Background="#FFF0F0F0">
+        Title="MainWindow" Height="450" Width="800" Background="#FFF0F0F0">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="2"></Setter>

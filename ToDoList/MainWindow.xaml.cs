@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 using ToDoList.Data;
@@ -8,28 +11,27 @@ using ToDoListLogic;
 
 namespace ToDoList
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        InMemoryToDoListData data = new InMemoryToDoListData();
+        // InMemoryToDoListData data = new InMemoryToDoListData();
         private readonly IToDoItemData toDoItemData;
+        private static readonly int _maxItemsPerPage = 12;
 
-        private static readonly int _maxItemsPerPage = 10;
         public int CurrentPage { get; private set; }
         public int LastPage { get; private set; }
+        public IEnumerable<ToDoItem> Items { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
 
             this.toDoItemData = new SqlToDoListData(new ToDoListDbContext());
-
             PriorityListBox.ItemsSource = Priority.GetPriorities();
-            RefreshToDoItemsDataGrid();
-            
+
+            RefreshAllTasks();
+
             CurrentPage = 1;
+            //MessageBox.Show(LastPage.ToString());
 
             AddItemCommand = new RelayCommand(obj => AddItem(), obj =>
                 !string.IsNullOrEmpty(NameTextBox.Text) &&
@@ -50,7 +52,7 @@ namespace ToDoList
             NextPageCommand = new RelayCommand(obj => NextPage(), obj =>
                 CurrentPage < LastPage
             );
-            NextButton.Command = NextPageCommand;
+            NextButton.Command = NextPageCommand;         
         }
 
         RelayCommand AddItemCommand;
@@ -67,7 +69,7 @@ namespace ToDoList
             toDoItemData.Add(newItem);
             toDoItemData.Commit();
 
-            RefreshToDoItemsDataGrid();
+            RefreshAllTasks();
         }
 
         RelayCommand MarkCompleteCommand;
@@ -78,23 +80,23 @@ namespace ToDoList
             toDoItemData.Update(updatedItem);
             toDoItemData.Commit();
 
-            RefreshToDoItemsDataGrid();
+            RefreshAllTasks();
 
-            // CompletionScreen.Visibility = Visibility.Visible;
+            CompletionScreen.Visibility = Visibility.Visible;
         }
 
         RelayCommand PreviousPageCommand;
         private void PreviousPage()
         {
             CurrentPage--;
-            RefreshToDoItemsDataGrid();
+            RefreshAllTasks();
         }
 
         RelayCommand NextPageCommand;
         private void NextPage()
         {
             CurrentPage++;
-            RefreshToDoItemsDataGrid();
+            RefreshAllTasks();
         }
 
         private int CalculateLastPage()
@@ -102,13 +104,20 @@ namespace ToDoList
             return (int)Math.Ceiling(toDoItemData.GetCountOfIncompleteItems() / (double)_maxItemsPerPage);
         }
 
-        private void RefreshToDoItemsDataGrid()
+        private async void RefreshAllTasks()
         {
-            LastPage = CalculateLastPage();
-
-            ToDoItemsDataGrid.ItemsSource = toDoItemData.GetIncompleteItemsByName()
+            await Task.Run(() => LastPage = CalculateLastPage());
+            await Task.Run(() => Items = toDoItemData.GetIncompleteItemsByName()
                     .Skip((CurrentPage - 1) * _maxItemsPerPage)
-                    .Take(_maxItemsPerPage);
+                    .Take(_maxItemsPerPage));
+
+            // MessageBox.Show(LastPage.ToString());
+            RefreshDataGridItems();
+        }
+
+        private void RefreshDataGridItems()
+        {
+            Dispatcher.Invoke(() => ToDoItemsDataGrid.ItemsSource = Items);
         }
 
         private void CompletionScreen_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

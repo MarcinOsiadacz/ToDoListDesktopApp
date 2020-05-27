@@ -29,7 +29,11 @@ namespace ToDoList.Data
 
         public int GetCountOfIncompleteItems()
         {
-            return db.ToDoItems.Count();
+            var query = (from i in db.ToDoItems
+                        where !i.IsCompleted
+                        select i)
+                        .Count();
+            return query;
         }
 
         public IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null, bool state = false)
