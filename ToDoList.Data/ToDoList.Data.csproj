@@ -53,10 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InMemoryToDoListData.cs" />
+    <Compile Include="InMemoryToDoItemData.cs" />
     <Compile Include="IToDoItemData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SqlToDoListData.cs" />
+    <Compile Include="SqlToDoItemData.cs" />
     <Compile Include="ToDoListDbContext.cs" />
   </ItemGroup>
   <ItemGroup>

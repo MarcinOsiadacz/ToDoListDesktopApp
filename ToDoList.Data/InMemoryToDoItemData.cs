@@ -6,11 +6,11 @@ using ToDoListLogic;
 
 namespace ToDoList.Data
 {
-    public class InMemoryToDoListData : IToDoItemData
+    public class InMemoryToDoItemData : IToDoItemData
     {
         List<ToDoItem> toDoItems;
 
-        public InMemoryToDoListData()
+        public InMemoryToDoItemData()
         {
             toDoItems = new List<ToDoItem>()
             {

@@ -25,7 +25,7 @@ namespace ToDoList
             InitializeComponent();
 
             this.Title = "To-Do List";
-            this.toDoItemData = new SqlToDoListData(new ToDoListDbContext());
+            this.toDoItemData = new SqlToDoItemData(new ToDoListDbContext());
             PriorityListBox.ItemsSource = Priority.GetPriorities();
 
             CurrentPage = 1;

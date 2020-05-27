@@ -8,11 +8,11 @@ using ToDoListLogic;
 
 namespace ToDoList.Data
 {
-    public class SqlToDoListData : IToDoItemData
+    public class SqlToDoItemData : IToDoItemData
     {
         private readonly ToDoListDbContext db;
 
-        public SqlToDoListData(ToDoListDbContext db)
+        public SqlToDoItemData(ToDoListDbContext db)
         {
             this.db = db;
         }
