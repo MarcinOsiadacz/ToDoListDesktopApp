@@ -13,9 +13,8 @@ namespace ToDoList
 {
     public partial class MainWindow : Window
     {
-        // InMemoryToDoListData data = new InMemoryToDoListData();
         private readonly IToDoItemData toDoItemData;
-        private static readonly int _maxItemsPerPage = 12;
+        private static readonly int _maxItemsPerPage = 10;
 
         public int CurrentPage { get; private set; }
         public int LastPage { get; private set; }
@@ -25,12 +24,13 @@ namespace ToDoList
         {
             InitializeComponent();
 
+            this.Title = "To-Do List";
             this.toDoItemData = new SqlToDoListData(new ToDoListDbContext());
             PriorityListBox.ItemsSource = Priority.GetPriorities();
 
-            RefreshAllTasks();
-
             CurrentPage = 1;
+
+            AllTasksRefresh();     
 
             AddItemCommand = new RelayCommand(obj => AddItem(), obj =>
                 !string.IsNullOrEmpty(NameTextBox.Text) &&
@@ -67,7 +67,7 @@ namespace ToDoList
 
             await Task.Run(() => toDoItemData.Add(newItem));
 
-            RefreshAllTasks();
+            AllTasksRefresh();
         }
 
         RelayCommand MarkCompleteCommand;
@@ -78,7 +78,7 @@ namespace ToDoList
             
             await Task.Run(() => toDoItemData.Update(updatedItem));
 
-            RefreshAllTasks();
+            AllTasksRefresh();
 
             CompletionScreen.Visibility = Visibility.Visible;
         }
@@ -87,14 +87,14 @@ namespace ToDoList
         private void PreviousPage()
         {
             CurrentPage--;
-            RefreshAllTasks();
+            AllTasksRefresh();
         }
 
         RelayCommand NextPageCommand;
         private void NextPage()
         {
             CurrentPage++;
-            RefreshAllTasks();
+            AllTasksRefresh();
         }
 
         private int CalculateLastPage()
@@ -102,7 +102,7 @@ namespace ToDoList
             return (int)Math.Ceiling(toDoItemData.GetCountOfIncompleteItems() / (double)_maxItemsPerPage);
         }
 
-        private async void RefreshAllTasks()
+        private async void AllTasksRefresh()
         {
             await Task.Run(() => LastPage = CalculateLastPage());
 
@@ -110,7 +110,11 @@ namespace ToDoList
             .Skip((CurrentPage - 1) * _maxItemsPerPage)
             .Take(_maxItemsPerPage));
 
-            Dispatcher.Invoke(() => ToDoItemsDataGrid.ItemsSource = Items);
+            Dispatcher.Invoke(() =>
+            {
+                ToDoItemsDataGrid.ItemsSource = Items;
+                PagecountTextBlock.Text = $"{CurrentPage} of {LastPage}";
+            });
         }
 
         private void CompletionScreen_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)

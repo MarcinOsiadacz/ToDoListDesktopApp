@@ -38,30 +38,6 @@ namespace ToDoList.Data
                     Priority = Priority.High,
                     IsCompleted = false,
                 },
-                new ToDoItem
-                {
-                    Id = 4,
-                    ItemName = "Test 3",
-                    DueDate = DateTime.Now,
-                    Priority = Priority.High,
-                    IsCompleted = false,
-                },
-                new ToDoItem
-                {
-                    Id = 5,
-                    ItemName = "Test 3",
-                    DueDate = DateTime.Now,
-                    Priority = Priority.High,
-                    IsCompleted = false,
-                },
-                new ToDoItem
-                {
-                    //Id = 6,
-                    ItemName = "Test 3",
-                    DueDate = DateTime.Now,
-                    Priority = Priority.High,
-                    IsCompleted = false,
-                },
             };
         }
 
