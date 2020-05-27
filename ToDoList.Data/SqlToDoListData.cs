@@ -20,11 +20,7 @@ namespace ToDoList.Data
         public void Add(ToDoItem newItem)
         {
             db.ToDoItems.Add(newItem);
-        }
-
-        public int Commit()
-        {
-            return db.SaveChanges();
+            db.SaveChanges();
         }
 
         public int GetCountOfIncompleteItems()
@@ -59,7 +55,9 @@ namespace ToDoList.Data
                     result.Priority = updatedItem.Priority;
                     result.IsCompleted = updatedItem.IsCompleted;
                 }
-            }       
+            }
+
+            db.SaveChanges();
         }
     }
 }

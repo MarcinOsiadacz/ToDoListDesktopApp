@@ -31,7 +31,6 @@ namespace ToDoList
             RefreshAllTasks();
 
             CurrentPage = 1;
-            //MessageBox.Show(LastPage.ToString());
 
             AddItemCommand = new RelayCommand(obj => AddItem(), obj =>
                 !string.IsNullOrEmpty(NameTextBox.Text) &&
@@ -56,7 +55,7 @@ namespace ToDoList
         }
 
         RelayCommand AddItemCommand;
-        private void AddItem()
+        private async void AddItem()
         {
             var newItem = new ToDoItem
             {
@@ -66,19 +65,18 @@ namespace ToDoList
                 DueDate = DueDatePicker.SelectedDate
             };
 
-            toDoItemData.Add(newItem);
-            toDoItemData.Commit();
+            await Task.Run(() => toDoItemData.Add(newItem));
 
             RefreshAllTasks();
         }
 
         RelayCommand MarkCompleteCommand;
-        private void MarkComplete()
+        private async void MarkComplete()
         {
             var updatedItem = (ToDoItem)ToDoItemsDataGrid.SelectedItem;
             updatedItem.IsCompleted = true;
-            toDoItemData.Update(updatedItem);
-            toDoItemData.Commit();
+            
+            await Task.Run(() => toDoItemData.Update(updatedItem));
 
             RefreshAllTasks();
 
@@ -107,16 +105,11 @@ namespace ToDoList
         private async void RefreshAllTasks()
         {
             await Task.Run(() => LastPage = CalculateLastPage());
+
             await Task.Run(() => Items = toDoItemData.GetIncompleteItemsByName()
-                    .Skip((CurrentPage - 1) * _maxItemsPerPage)
-                    .Take(_maxItemsPerPage));
+            .Skip((CurrentPage - 1) * _maxItemsPerPage)
+            .Take(_maxItemsPerPage));
 
-            // MessageBox.Show(LastPage.ToString());
-            RefreshDataGridItems();
-        }
-
-        private void RefreshDataGridItems()
-        {
             Dispatcher.Invoke(() => ToDoItemsDataGrid.ItemsSource = Items);
         }
 

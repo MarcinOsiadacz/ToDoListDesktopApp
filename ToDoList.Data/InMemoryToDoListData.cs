@@ -71,11 +71,6 @@ namespace ToDoList.Data
             newItem.Id = toDoItems.Max(i => i.Id) + 1;
         }
 
-        public int Commit()
-        {
-            return 0;
-        }
-
         public int GetCountOfIncompleteItems()
         {
             return (from i in toDoItems 

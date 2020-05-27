@@ -11,6 +11,5 @@ namespace ToDoList.Data
         void Add(ToDoItem newItem);
         void Update(ToDoItem updatedItem);
         int GetCountOfIncompleteItems();
-        int Commit();
     }
 }
