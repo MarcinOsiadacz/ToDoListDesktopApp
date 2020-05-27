@@ -3,7 +3,7 @@
 ### Overview
 ToDoListDesktopApp is a simple WPF application to track your daily tasks.
 
-![AppScreenshot](https://i.imgur.com/ZpbWwhI.jpg)
+![AppScreenshot](./Images/2020-05-27%2016_53_05-To-Do%20List.jpg)
 
 ### Features
 * Display incomplete tasks
