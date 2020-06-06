@@ -8,9 +8,9 @@ namespace ToDoList.Data
 {
     public interface IToDoItemData
     {
-        IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null, bool state = false);
+        IEnumerable<ToDoItem> GetItemsByName(string name = null, bool state = false);
         void Add(ToDoItem newItem);
         void Update(ToDoItem updatedItem);
-        int GetCountOfIncompleteItems();
+        int GetCountOfItems(bool state = false);
     }
 }

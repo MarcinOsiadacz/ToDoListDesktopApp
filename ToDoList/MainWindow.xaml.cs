@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Animation;
 using ToDoList.Data;
+using ToDoList.Logic;
 using ToDoListLogic;
 
 namespace ToDoList
@@ -19,6 +20,7 @@ namespace ToDoList
         public int CurrentPage { get; private set; }
         public int LastPage { get; private set; }
         public IEnumerable<ToDoItem> Items { get; set; }
+        public bool StateSelected {get; private set;}
 
         public MainWindow()
         {
@@ -27,10 +29,9 @@ namespace ToDoList
             this.Title = "To-Do List";
             this.toDoItemData = new SqlToDoItemData(new ToDoListDbContext());
             PriorityListBox.ItemsSource = Priority.GetPriorities();
+            StateComboBox.ItemsSource = State.GetStates();
 
-            CurrentPage = 1;
-
-            AllTasksRefresh();     
+            CurrentPage = 1;  
 
             AddItemCommand = new RelayCommand(obj => AddItem(), obj =>
                 !string.IsNullOrEmpty(NameTextBox.Text) &&
@@ -39,7 +40,8 @@ namespace ToDoList
             AddItemButton.Command = AddItemCommand;
 
             MarkCompleteCommand = new RelayCommand(obj => MarkComplete(), obj => 
-                ToDoItemsDataGrid.SelectedItem != null
+                ToDoItemsDataGrid.SelectedItem != null &&
+                !StateSelected
             );
             MarkAsCompletedButton.Command = MarkCompleteCommand;
 
@@ -97,7 +99,7 @@ namespace ToDoList
 
         private int CalculateLastPage()
         {
-            return (int)Math.Ceiling(toDoItemData.GetCountOfIncompleteItems() / (double)_maxItemsPerPage);
+            return (int)Math.Ceiling(toDoItemData.GetCountOfItems(state: StateSelected) / (double)_maxItemsPerPage);
         }
 
         private async void AllTasksRefresh()
@@ -110,7 +112,7 @@ namespace ToDoList
                 CurrentPage--;
             }
 
-            Items = await Task.Run(() => toDoItemData.GetIncompleteItemsByName()              
+            Items = await Task.Run(() => toDoItemData.GetItemsByName(state: StateSelected)              
                     .Skip((CurrentPage - 1) * _maxItemsPerPage)
                     .Take(_maxItemsPerPage));
 
@@ -136,6 +138,25 @@ namespace ToDoList
             {
                 ((Storyboard)CompletionScreen.Resources["MarkCompleteStoryboard"]).Begin();
             }
+        }
+
+        private void StateComboBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            StateComboBox.SelectedIndex = 0;
+        }
+
+        private void StateComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (StateComboBox.SelectedItem.ToString() == State.Completed)
+            {
+                StateSelected = true;
+            }
+            else
+            {
+                StateSelected = false;
+            }
+
+            AllTasksRefresh();
         }
     }
 }

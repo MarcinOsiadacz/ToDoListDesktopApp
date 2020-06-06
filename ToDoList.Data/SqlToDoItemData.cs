@@ -23,16 +23,16 @@ namespace ToDoList.Data
             db.SaveChanges();
         }
 
-        public int GetCountOfIncompleteItems()
+        public int GetCountOfItems(bool state = false)
         {
             var query = (from i in db.ToDoItems
-                        where !i.IsCompleted
+                        where i.IsCompleted == state
                         select i)
                         .Count();
             return query;
         }
 
-        public IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null, bool state = false)
+        public IEnumerable<ToDoItem> GetItemsByName(string name = null, bool state = false)
         {
             var query = from i in db.ToDoItems
                         where (string.IsNullOrEmpty(name) || i.ItemName.Contains(name)) &&

@@ -56,9 +56,13 @@
                 </Grid.ColumnDefinitions>
                 <GroupBox x:Name="LeftGroupBox" 
                       Margin="3" 
-                      Header="All Tasks"
+                      Header="View"
                       Grid.Column="0">
                     <StackPanel>
+                        <ComboBox x:Name="StateComboBox" 
+                                  SelectionChanged="StateComboBox_SelectionChanged"
+                                  Loaded="StateComboBox_Loaded">
+                        </ComboBox>
                         <DataGrid x:Name="ToDoItemsDataGrid"
                               ColumnWidth="*"
                               IsReadOnly="True"

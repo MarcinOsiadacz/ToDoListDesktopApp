@@ -48,15 +48,15 @@ namespace ToDoList.Data
             newItem.Id = toDoItems.Max(i => i.Id) + 1;
         }
 
-        public int GetCountOfIncompleteItems()
+        public int GetCountOfItems(bool state = false)
         {
             return (from i in toDoItems 
-                    where !i.IsCompleted
+                    where i.IsCompleted == state
                     select i)
                     .Count();
         }
 
-        public IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null, bool state = false)
+        public IEnumerable<ToDoItem> GetItemsByName(string name = null, bool state = false)
         {
             var query = from i in toDoItems
                         where (string.IsNullOrEmpty(name) || i.ItemName.Contains(name)) &&
