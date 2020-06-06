@@ -156,6 +156,7 @@ namespace ToDoList
                 StateSelected = false;
             }
 
+            CurrentPage = 1;
             AllTasksRefresh();
         }
     }
