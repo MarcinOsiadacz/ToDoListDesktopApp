@@ -39,6 +39,7 @@ namespace ToDoList.Data
                         i.IsCompleted == state
                         orderby i.ItemName
                         select i;
+
             return query;
         }
 

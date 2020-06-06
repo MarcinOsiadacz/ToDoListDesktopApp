@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using ToDoListLogic;
+using System.Threading.Tasks;
 
 namespace ToDoList.Data
 {
@@ -57,11 +58,12 @@ namespace ToDoList.Data
 
         public IEnumerable<ToDoItem> GetIncompleteItemsByName(string name = null, bool state = false)
         {
-            return from i in toDoItems
-                   where (string.IsNullOrEmpty(name) || i.ItemName.Contains(name)) &&
-                   i.IsCompleted == state
-                   orderby i.ItemName
-                   select i;
+            var query = from i in toDoItems
+                        where (string.IsNullOrEmpty(name) || i.ItemName.Contains(name)) &&
+                        i.IsCompleted == state
+                        orderby i.ItemName
+                        select i;
+            return query;
         }
 
         public void Update(ToDoItem updatedItem)

@@ -66,7 +66,6 @@ namespace ToDoList
             };
 
             await Task.Run(() => toDoItemData.Add(newItem));
-
             AllTasksRefresh();
         }
 
@@ -75,9 +74,8 @@ namespace ToDoList
         {
             var updatedItem = (ToDoItem)ToDoItemsDataGrid.SelectedItem;
             updatedItem.IsCompleted = true;
-            
-            await Task.Run(() => toDoItemData.Update(updatedItem));
 
+            await Task.Run(() => toDoItemData.Update(updatedItem));
             AllTasksRefresh();
 
             CompletionScreen.Visibility = Visibility.Visible;
@@ -104,17 +102,32 @@ namespace ToDoList
 
         private async void AllTasksRefresh()
         {
-            await Task.Run(() => LastPage = CalculateLastPage());
+            LastPage = await Task.Run(() => CalculateLastPage());
 
-            await Task.Run(() => Items = toDoItemData.GetIncompleteItemsByName()
-            .Skip((CurrentPage - 1) * _maxItemsPerPage)
-            .Take(_maxItemsPerPage));
-
-            Dispatcher.Invoke(() =>
+            if (CurrentPage > LastPage &&
+                CurrentPage > 1)
             {
-                ToDoItemsDataGrid.ItemsSource = Items;
+                CurrentPage--;
+            }
+
+            Items = await Task.Run(() => toDoItemData.GetIncompleteItemsByName()              
+                    .Skip((CurrentPage - 1) * _maxItemsPerPage)
+                    .Take(_maxItemsPerPage));
+
+            RefreshPagecount();
+            ToDoItemsDataGrid.ItemsSource = Items;        
+        }
+
+        private void RefreshPagecount()
+        {
+            if (LastPage == 0)
+            {
+                PagecountTextBlock.Text = "No Tasks";
+            }
+            else
+            {
                 PagecountTextBlock.Text = $"{CurrentPage} of {LastPage}";
-            });
+            }
         }
 
         private void CompletionScreen_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
