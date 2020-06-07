@@ -32,12 +32,13 @@ namespace ToDoList.Data
             return query;
         }
 
-        public IEnumerable<ToDoItem> GetItemsByName(string name = null, bool state = false)
+        public IEnumerable<ToDoItem> GetItemsByNameAndState(string name = null, bool state = false)
         {
             var query = from i in db.ToDoItems
                         where (string.IsNullOrEmpty(name) || i.ItemName.Contains(name)) &&
                         i.IsCompleted == state
-                        orderby i.ItemName
+                        orderby i.DueDate.HasValue descending,  // Display items with DueDate first
+                                i.DueDate                       // Display items with DueDate == null after
                         select i;
 
             return query;

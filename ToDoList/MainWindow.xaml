@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ToDoList"
         xmlns:customControls="clr-namespace:Custom.Controls;assembly=Custom.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FFF0F0F0">
+        Title="MainWindow" Height="500" Width="800" Background="#FFF0F0F0">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="2"></Setter>
@@ -15,6 +15,9 @@
             <Setter Property="Margin" Value="2"></Setter>
         </Style>
         <Style TargetType="ListBox">
+            <Setter Property="Margin" Value="2"></Setter>
+        </Style>
+        <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="2"></Setter>
         </Style>
         <Style TargetType="Button">
@@ -66,7 +69,8 @@
                         <DataGrid x:Name="ToDoItemsDataGrid"
                               ColumnWidth="*"
                               IsReadOnly="True"
-                              AutoGenerateColumns="False">
+                              AutoGenerateColumns="False" 
+                              SelectionChanged="ToDoItemsDataGrid_SelectionChanged">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Task" 
                                                 Binding="{Binding ItemName}">
@@ -102,16 +106,22 @@
                         <Button x:Name="MarkAsCompletedButton"
                             Content="Mark Complete">
                         </Button>
+                        <Button x:Name="EditTaskButton"
+                            Content="Edit Task">
+                        </Button>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox x:Name="RightGroupBox" 
                       Margin="3" 
-                      Header="Add a New Task"
+                      Header="Task"
                       Grid.Column="1">
                     <StackPanel>
-                        <Label
-                        x:Name="NameLabel"
-                        Content="Describe your task:">
+                        <Button x:Name="NewTaskButton"
+                            Content="New Task"
+                                FontWeight="Bold">
+                        </Button>
+                        <Label x:Name="NameLabel"
+                            Content="Describe your task:">
                         </Label>
                         <TextBox x:Name="NameTextBox">
                         </TextBox>
@@ -125,8 +135,8 @@
                         </Label>
                         <DatePicker x:Name="DueDatePicker">
                         </DatePicker>
-                        <Button x:Name="AddItemButton"
-                            Content="Add">
+                        <Button x:Name="SaveButton"
+                            Content="Save">
                         </Button>
                     </StackPanel>
                 </GroupBox>

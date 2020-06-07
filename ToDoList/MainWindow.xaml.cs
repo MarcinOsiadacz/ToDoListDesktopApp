@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using ToDoList.Data;
 using ToDoList.Logic;
@@ -33,11 +34,11 @@ namespace ToDoList
 
             CurrentPage = 1;  
 
-            AddItemCommand = new RelayCommand(obj => AddItem(), obj =>
+            SaveItemCommand = new RelayCommand(obj => SaveItem(), obj =>
                 !string.IsNullOrEmpty(NameTextBox.Text) &&
                 PriorityListBox.SelectedItem != null
             );
-            AddItemButton.Command = AddItemCommand;
+            SaveButton.Command = SaveItemCommand;
 
             MarkCompleteCommand = new RelayCommand(obj => MarkComplete(), obj => 
                 ToDoItemsDataGrid.SelectedItem != null &&
@@ -53,22 +54,53 @@ namespace ToDoList
             NextPageCommand = new RelayCommand(obj => NextPage(), obj =>
                 CurrentPage < LastPage
             );
-            NextButton.Command = NextPageCommand;         
+            NextButton.Command = NextPageCommand;
+
+            EditTaskCommand = new RelayCommand(obj => EditTask(), obj =>
+                ToDoItemsDataGrid.SelectedItem != null &&
+                !StateSelected
+            );
+            EditTaskButton.Command = EditTaskCommand;
+
+            NewTaskCommand = new RelayCommand(obj => NewTask());
+            NewTaskButton.Command = NewTaskCommand;
         }
 
-        RelayCommand AddItemCommand;
-        private async void AddItem()
+        RelayCommand SaveItemCommand;
+        private async void SaveItem()
         {
-            var newItem = new ToDoItem
+            if (ToDoItemsDataGrid.SelectedItem != null)
             {
-                ItemName = NameTextBox.Text,
-                Priority = PriorityListBox.SelectedItem.ToString(),
-                IsCompleted = false,
-                DueDate = DueDatePicker.SelectedDate
-            };
+                var editedItem = (ToDoItem)ToDoItemsDataGrid.SelectedItem;
 
-            await Task.Run(() => toDoItemData.Add(newItem));
-            AllTasksRefresh();
+                editedItem.ItemName = NameTextBox.Text;
+                editedItem.Priority = PriorityListBox.SelectedItem.ToString();
+                editedItem.DueDate = DueDatePicker.SelectedDate;
+
+                await Task.Run(() => toDoItemData.Update(editedItem));
+            }
+            else
+            {
+                var newItem = new ToDoItem
+                {
+                    ItemName = NameTextBox.Text,
+                    Priority = PriorityListBox.SelectedItem.ToString(),
+                    IsCompleted = false,
+                    DueDate = DueDatePicker.SelectedDate
+                };
+
+                await Task.Run(() => toDoItemData.Add(newItem));
+            }
+
+            ClearInputValues();
+            TasksViewRefresh();
+        }
+
+        private void ClearInputValues()
+        {
+            NameTextBox.Text = string.Empty;
+            PriorityListBox.SelectedItem = null;
+            DueDatePicker.SelectedDate = null;
         }
 
         RelayCommand MarkCompleteCommand;
@@ -78,7 +110,7 @@ namespace ToDoList
             updatedItem.IsCompleted = true;
 
             await Task.Run(() => toDoItemData.Update(updatedItem));
-            AllTasksRefresh();
+            TasksViewRefresh();
 
             CompletionScreen.Visibility = Visibility.Visible;
         }
@@ -87,14 +119,14 @@ namespace ToDoList
         private void PreviousPage()
         {
             CurrentPage--;
-            AllTasksRefresh();
+            TasksViewRefresh();
         }
 
         RelayCommand NextPageCommand;
         private void NextPage()
         {
             CurrentPage++;
-            AllTasksRefresh();
+            TasksViewRefresh();
         }
 
         private int CalculateLastPage()
@@ -102,7 +134,7 @@ namespace ToDoList
             return (int)Math.Ceiling(toDoItemData.GetCountOfItems(state: StateSelected) / (double)_maxItemsPerPage);
         }
 
-        private async void AllTasksRefresh()
+        private async void TasksViewRefresh()
         {
             LastPage = await Task.Run(() => CalculateLastPage());
 
@@ -112,7 +144,7 @@ namespace ToDoList
                 CurrentPage--;
             }
 
-            Items = await Task.Run(() => toDoItemData.GetItemsByName(state: StateSelected)              
+            Items = await Task.Run(() => toDoItemData.GetItemsByNameAndState(state: StateSelected)              
                     .Skip((CurrentPage - 1) * _maxItemsPerPage)
                     .Take(_maxItemsPerPage));
 
@@ -142,6 +174,7 @@ namespace ToDoList
 
         private void StateComboBox_Loaded(object sender, RoutedEventArgs e)
         {
+            // Select active items by default
             StateComboBox.SelectedIndex = 0;
         }
 
@@ -157,7 +190,28 @@ namespace ToDoList
             }
 
             CurrentPage = 1;
-            AllTasksRefresh();
+            TasksViewRefresh();
+        }
+
+        RelayCommand EditTaskCommand;
+        private void EditTask()
+        {
+            var editedItem = (ToDoItem)ToDoItemsDataGrid.SelectedItem;
+
+            NameTextBox.Text = editedItem.ItemName;
+            PriorityListBox.SelectedItem = editedItem.Priority;
+            DueDatePicker.SelectedDate = editedItem.DueDate;
+        }
+
+        RelayCommand NewTaskCommand;
+        private void NewTask()
+        {
+            ToDoItemsDataGrid.SelectedItem = null;
+        }
+
+        private void ToDoItemsDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            ClearInputValues();
         }
     }
 }

@@ -56,7 +56,7 @@ namespace ToDoList.Data
                     .Count();
         }
 
-        public IEnumerable<ToDoItem> GetItemsByName(string name = null, bool state = false)
+        public IEnumerable<ToDoItem> GetItemsByNameAndState(string name = null, bool state = false)
         {
             var query = from i in toDoItems
                         where (string.IsNullOrEmpty(name) || i.ItemName.Contains(name)) &&
