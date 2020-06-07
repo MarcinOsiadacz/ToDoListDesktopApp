@@ -29,6 +29,7 @@ namespace ToDoList.Data
                         where i.IsCompleted == state
                         select i)
                         .Count();
+
             return query;
         }
 
