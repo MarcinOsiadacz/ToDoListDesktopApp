@@ -112,7 +112,7 @@ namespace ToDoList
             await Task.Run(() => toDoItemData.Update(updatedItem));
             TasksViewRefresh();
 
-            CompletionScreen.Visibility = Visibility.Visible;
+            // CompletionScreen.Visibility = Visibility.Visible;
         }
 
         RelayCommand PreviousPageCommand;
@@ -163,7 +163,7 @@ namespace ToDoList
                 PagecountTextBlock.Text = $"{CurrentPage} of {LastPage}";
             }
         }
-
+        /*
         private void CompletionScreen_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if ((bool)e.NewValue)
@@ -171,7 +171,7 @@ namespace ToDoList
                 ((Storyboard)CompletionScreen.Resources["MarkCompleteStoryboard"]).Begin();
             }
         }
-
+        */
         private void StateComboBox_Loaded(object sender, RoutedEventArgs e)
         {
             // Select active items by default

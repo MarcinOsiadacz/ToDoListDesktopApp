@@ -5,146 +5,271 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToDoList"
         xmlns:customControls="clr-namespace:Custom.Controls;assembly=Custom.Controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800" Background="#FFF0F0F0">
+        Title="MainWindow" Height="600" Width="1024">
     <Window.Resources>
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="2"></Setter>
-        </Style>
-        <Style TargetType="DatePicker">
-            <Setter Property="Margin" Value="2"></Setter>
-        </Style>
-        <Style TargetType="ListBox">
-            <Setter Property="Margin" Value="2"></Setter>
-        </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="Margin" Value="2"></Setter>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="Margin" Value="2"></Setter>
-            <Setter Property="Background" Value="#FF005582"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
-            <Setter Property="FontSize" Value="14"></Setter>
-        </Style>
-        <Style TargetType="DataGrid">
-            <Setter Property="Margin" Value="2"></Setter>
-        </Style>
     </Window.Resources>
-    <Grid>
-        <Grid>
+    <Grid x:Name="ParentGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" 
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="Gainsboro" 
+                                  Offset="1"/>
+                    <GradientStop Color="#FFEEEEEE"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="20" 
+                                  Color="#FFE2E2E2" 
+                                  RenderingBias="Quality" 
+                                  ShadowDepth="1">
+                </DropShadowEffect>
+            </Grid.Effect>
+            <Grid Grid.Row="0"
+                  Background="#FF3F51B5">
+                <Grid Width="200"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Center"
+                      Margin="12">
+                    <materialDesign:PackIcon Kind="FormatListCheckbox"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left"
+                                             Foreground="White" 
+                                             Width="30" 
+                                             Height="30">
+                    </materialDesign:PackIcon>
+                    <TextBlock Text="TO-DO LIST"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Right" 
+                               Foreground="White"
+                               Style="{DynamicResource MaterialDesignHeadline5TextBlock}" FontFamily="Roboto" FontSize="30">
+                    </TextBlock>
+                </Grid>
+            </Grid>
+            <StackPanel Grid.Row="1">
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="NameLabel"
+                           Grid.Row="0"
+                           Content="What do you want to do?"
+                           Style="{DynamicResource MaterialDesignLabel}">
+                    </Label>
+                    <TextBox x:Name="NameTextBox"
+                             Style="{DynamicResource MaterialDesignTextBox}"
+                             Grid.Row="1">
+                    </TextBox>
+                </Grid>
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="PriorityLabel"
+                           Grid.Row="0"
+                           Content="How important it is?"
+                           Style="{DynamicResource MaterialDesignLabel}">
+                    </Label>
+                    <ListBox x:Name="PriorityListBox"
+                             Grid.Row="1"
+                             Style="{DynamicResource MaterialDesignListBox}">
+                    </ListBox>
+                </Grid>
+                <Grid Margin="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="DueDateLabel"
+                           Grid.Row="0"
+                           Content="When is your deadline?"
+                           Style="{DynamicResource MaterialDesignLabel}">
+                    </Label>
+                    <DatePicker x:Name="DueDatePicker"
+                                Grid.Row="1"
+                                Style="{DynamicResource MaterialDesignDatePicker}">
+                    </DatePicker>
+                </Grid>
+                <Button x:Name="SaveButton"
+                        Margin="12">
+                    <Grid Width="100">
+                        <materialDesign:PackIcon Kind="ContentSave"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Left">
+                        </materialDesign:PackIcon>
+                        <TextBlock HorizontalAlignment="Center" 
+                                   VerticalAlignment="Center" 
+                                   Text="SAVE">
+                        </TextBlock>
+                    </Grid>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="4*"></RowDefinition>
+                <RowDefinition Height="1.5*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
-                  Background="#FF005582">
+            <StackPanel Grid.Row="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+                <Button x:Name="NewTaskButton"
+                        Margin="12"
+                        Width="50"
+                        Height="50">
+                    <materialDesign:PackIcon Kind="Add"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center" 
+                                             Width="25" 
+                                             Height="25">
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button x:Name="EditTaskButton"
+                        Margin="12"
+                        Width="50"
+                        Height="50">
+                    <materialDesign:PackIcon Kind="Edit"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             Width="25" 
+                                             Height="25">
+                    </materialDesign:PackIcon>
+                </Button>
+                <Button x:Name="MarkAsCompletedButton"
+                        Margin="12"
+                        Width="50"
+                        Height="50">
+                    <materialDesign:PackIcon Kind="Check"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             Width="25" 
+                                             Height="25">
+                    </materialDesign:PackIcon>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"></RowDefinition>
+                <RowDefinition Height="6*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" 
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="Gainsboro" 
+                                  Offset="1"/>
+                    <GradientStop Color="#FFEEEEEE"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="20" 
+                                  Color="#FFE2E2E2" 
+                                  RenderingBias="Quality" 
+                                  ShadowDepth="1">
+                </DropShadowEffect>
+            </Grid.Effect>
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="2*"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="10*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="1"
-                       Text="To-Do List"
-                       Background="#FF005582"
-                       Foreground="White"
-                       FontSize="23"
-                       TextAlignment="Left" 
-                       Margin="10,0,0,0">
-                </TextBlock>
+                <ComboBox x:Name="StateComboBox"
+                          Grid.Row="0"
+                          Margin="12"
+                          Style="{DynamicResource MaterialDesignDataGridComboBox}"
+                          SelectionChanged="StateComboBox_SelectionChanged"
+                          Loaded="StateComboBox_Loaded" 
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Center">
+                </ComboBox>
+                <DataGrid x:Name="ToDoItemsDataGrid"
+                          Style="{DynamicResource MaterialDesignDataGrid}"
+                          ColumnWidth="*"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False"
+                          Grid.Row="1"
+                          Margin="12"
+                          SelectionChanged="ToDoItemsDataGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Task" 
+                                            Binding="{Binding ItemName}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Due" 
+                                            Binding="{Binding DueDate, StringFormat=\{0:dd-MM-yyyy\}}">
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Priority" 
+                                            Binding="{Binding Priority}">
+                        </DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="1.5*"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <GroupBox x:Name="LeftGroupBox" 
-                      Margin="3" 
-                      Header="View"
-                      Grid.Column="0">
-                    <StackPanel>
-                        <ComboBox x:Name="StateComboBox" 
-                                  SelectionChanged="StateComboBox_SelectionChanged"
-                                  Loaded="StateComboBox_Loaded">
-                        </ComboBox>
-                        <DataGrid x:Name="ToDoItemsDataGrid"
-                              ColumnWidth="*"
-                              IsReadOnly="True"
-                              AutoGenerateColumns="False" 
-                              SelectionChanged="ToDoItemsDataGrid_SelectionChanged">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Task" 
-                                                Binding="{Binding ItemName}">
-                                </DataGridTextColumn>
-                                <DataGridTextColumn Header="Due" 
-                                                Binding="{Binding DueDate, StringFormat=\{0:dd-MM-yyyy\}}">
-                                </DataGridTextColumn>
-                                <DataGridTextColumn Header="Priority" 
-                                                Binding="{Binding Priority}">
-                                </DataGridTextColumn>
-                            </DataGrid.Columns>
-                        </DataGrid>
-                        <Grid x:Name="PaginationGrid">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                                <ColumnDefinition Width="*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Button x:Name="PreviousButton"
-                            Content="Previous"
-                            Grid.Column="0">
-                            </Button>
-                            <TextBlock x:Name="PagecountTextBlock"
-                               TextAlignment="Center"
-                               VerticalAlignment="Center"
-                               Grid.Column="1">
-                            </TextBlock>
-                            <Button x:Name="NextButton"
-                            Content="Next"
-                            Grid.Column="2">
-                            </Button>
-                        </Grid>
-                        <Button x:Name="MarkAsCompletedButton"
-                            Content="Mark Complete">
-                        </Button>
-                        <Button x:Name="EditTaskButton"
-                            Content="Edit Task">
-                        </Button>
-                    </StackPanel>
-                </GroupBox>
-                <GroupBox x:Name="RightGroupBox" 
-                      Margin="3" 
-                      Header="Task"
-                      Grid.Column="1">
-                    <StackPanel>
-                        <Button x:Name="NewTaskButton"
-                            Content="New Task"
-                                FontWeight="Bold">
-                        </Button>
-                        <Label x:Name="NameLabel"
-                            Content="Describe your task:">
-                        </Label>
-                        <TextBox x:Name="NameTextBox">
-                        </TextBox>
-                        <Label x:Name="PriorityLabel"
-                           Content="Priority:">
-                        </Label>
-                        <ListBox x:Name="PriorityListBox">
-                        </ListBox>
-                        <Label x:Name="DueDateLabel"
-                           Content="Due:">
-                        </Label>
-                        <DatePicker x:Name="DueDatePicker">
-                        </DatePicker>
-                        <Button x:Name="SaveButton"
-                            Content="Save">
-                        </Button>
-                    </StackPanel>
-                </GroupBox>
+                <Button x:Name="PreviousButton"
+                        Grid.Column="0"
+                        Margin="12"
+                        Width="50"
+                        Height="50"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="NavigateBefore"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             Width="25" 
+                                             Height="25">
+                    </materialDesign:PackIcon>
+                </Button>
+                <TextBlock x:Name="PagecountTextBlock"
+                           TextAlignment="Center"
+                           VerticalAlignment="Center"
+                           Grid.Column="1"
+                           Margin="12"
+                           Style="{DynamicResource MaterialDesignCaptionTextBlock}">
+                </TextBlock>
+                <Button x:Name="NextButton"
+                        Grid.Column="2"
+                        Margin="12"
+                        Width="50"
+                        Height="50"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center">
+                    <materialDesign:PackIcon Kind="NavigateNext"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             Width="25" 
+                                             Height="25">
+                    </materialDesign:PackIcon>
+                </Button>
             </Grid>
         </Grid>
-        <customControls:CompletionScreen x:Name="CompletionScreen"
-                                             Visibility="Hidden" 
-                                             IsVisibleChanged="CompletionScreen_IsVisibleChanged">
-        </customControls:CompletionScreen>
     </Grid>
 </Window>
