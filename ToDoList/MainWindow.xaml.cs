@@ -64,6 +64,15 @@ namespace ToDoList
 
             NewTaskCommand = new RelayCommand(obj => NewTask());
             NewTaskButton.Command = NewTaskCommand;
+
+            RestoreActiveCommand = new RelayCommand(obj => RestoreActive(), obj =>
+            ToDoItemsDataGrid.SelectedItem != null &&
+            StateSelected
+            );
+            RestoreAsActiveButton.Command = RestoreActiveCommand;
+
+            HelpCommand = new RelayCommand(obj => Help());
+            HelpButton.Command = HelpCommand;
         }
 
         RelayCommand SaveItemCommand;
@@ -106,10 +115,10 @@ namespace ToDoList
         RelayCommand MarkCompleteCommand;
         private async void MarkComplete()
         {
-            var updatedItem = (ToDoItem)ToDoItemsDataGrid.SelectedItem;
-            updatedItem.IsCompleted = true;
+            var itemToComplete = (ToDoItem)ToDoItemsDataGrid.SelectedItem;
+            itemToComplete.IsCompleted = true;
 
-            await Task.Run(() => toDoItemData.Update(updatedItem));
+            await Task.Run(() => toDoItemData.Update(itemToComplete));
             TasksViewRefresh();
 
             // CompletionScreen.Visibility = Visibility.Visible;
@@ -212,6 +221,22 @@ namespace ToDoList
         private void ToDoItemsDataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             ClearInputValues();
+        }
+
+        RelayCommand RestoreActiveCommand;
+        private async void RestoreActive()
+        {
+            var itemToRestore = (ToDoItem)ToDoItemsDataGrid.SelectedItem;
+            itemToRestore.IsCompleted = false;
+
+            await Task.Run(() => toDoItemData.Update(itemToRestore));
+            TasksViewRefresh();
+        }
+
+        RelayCommand HelpCommand;
+        private void Help()
+        {
+            MessageBox.Show("Help Test!");
         }
     }
 }

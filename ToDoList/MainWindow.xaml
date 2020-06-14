@@ -26,7 +26,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="1">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" 
                                      StartPoint="0.5,0">
@@ -51,7 +51,7 @@
                 <Grid Width="200"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center"
-                      Margin="12">
+                      Margin="10">
                     <materialDesign:PackIcon Kind="FormatListCheckbox"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Left"
@@ -68,7 +68,7 @@
                 </Grid>
             </Grid>
             <StackPanel Grid.Row="1">
-                <Grid Margin="12">
+                <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
@@ -83,7 +83,7 @@
                              Grid.Row="1">
                     </TextBox>
                 </Grid>
-                <Grid Margin="12">
+                <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
@@ -98,7 +98,7 @@
                              Style="{DynamicResource MaterialDesignListBox}">
                     </ListBox>
                 </Grid>
-                <Grid Margin="12">
+                <Grid Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>
@@ -114,7 +114,7 @@
                     </DatePicker>
                 </Grid>
                 <Button x:Name="SaveButton"
-                        Margin="12">
+                        Margin="10">
                     <Grid Width="100">
                         <materialDesign:PackIcon Kind="ContentSave"
                                                  VerticalAlignment="Center"
@@ -131,14 +131,14 @@
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="1.5*"></RowDefinition>
+                <RowDefinition Height="2*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="1"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center">
                 <Button x:Name="NewTaskButton"
-                        Margin="12"
+                        Margin="10"
                         Width="50"
                         Height="50">
                     <materialDesign:PackIcon Kind="Add"
@@ -149,7 +149,7 @@
                     </materialDesign:PackIcon>
                 </Button>
                 <Button x:Name="EditTaskButton"
-                        Margin="12"
+                        Margin="10"
                         Width="50"
                         Height="50">
                     <materialDesign:PackIcon Kind="Edit"
@@ -160,7 +160,7 @@
                     </materialDesign:PackIcon>
                 </Button>
                 <Button x:Name="MarkAsCompletedButton"
-                        Margin="12"
+                        Margin="10"
                         Width="50"
                         Height="50">
                     <materialDesign:PackIcon Kind="Check"
@@ -170,11 +170,22 @@
                                              Height="25">
                     </materialDesign:PackIcon>
                 </Button>
+                <Button x:Name="RestoreAsActiveButton"
+                        Margin="10"
+                        Width="50"
+                        Height="50">
+                    <materialDesign:PackIcon Kind="Restore"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Center"
+                                             Width="22" 
+                                             Height="22">
+                    </materialDesign:PackIcon>
+                </Button>
             </StackPanel>
         </Grid>
         <Grid Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.3*"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
                 <RowDefinition Height="6*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
@@ -193,6 +204,30 @@
                                   ShadowDepth="1">
                 </DropShadowEffect>
             </Grid.Effect>
+            <Grid Grid.Row="0"
+                  Background="#FF3F51B5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"
+                            Height="30"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <Button x:Name="HelpButton"
+                        Grid.Row="0"
+                        Foreground="White"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center">
+                        <materialDesign:PackIcon Kind="HelpCircleOutline"
+                                                 Foreground="White"
+                                                 Height="20"
+                                                 Width="20"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Center">
+                        </materialDesign:PackIcon>
+                    </Button>
+                </StackPanel>
+            </Grid>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
@@ -200,7 +235,7 @@
                 </Grid.RowDefinitions>
                 <ComboBox x:Name="StateComboBox"
                           Grid.Row="0"
-                          Margin="12"
+                          Margin="10"
                           Style="{DynamicResource MaterialDesignDataGridComboBox}"
                           SelectionChanged="StateComboBox_SelectionChanged"
                           Loaded="StateComboBox_Loaded" 
@@ -213,7 +248,7 @@
                           IsReadOnly="True"
                           AutoGenerateColumns="False"
                           Grid.Row="1"
-                          Margin="12"
+                          Margin="10"
                           SelectionChanged="ToDoItemsDataGrid_SelectionChanged">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Task" 
@@ -236,7 +271,7 @@
                 </Grid.ColumnDefinitions>
                 <Button x:Name="PreviousButton"
                         Grid.Column="0"
-                        Margin="12"
+                        Margin="10"
                         Width="50"
                         Height="50"
                         HorizontalAlignment="Right"
@@ -252,12 +287,12 @@
                            TextAlignment="Center"
                            VerticalAlignment="Center"
                            Grid.Column="1"
-                           Margin="12"
+                           Margin="10"
                            Style="{DynamicResource MaterialDesignCaptionTextBlock}">
                 </TextBlock>
                 <Button x:Name="NextButton"
                         Grid.Column="2"
-                        Margin="12"
+                        Margin="10"
                         Width="50"
                         Height="50"
                         HorizontalAlignment="Left"

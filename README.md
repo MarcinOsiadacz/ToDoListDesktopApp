@@ -13,11 +13,15 @@ ToDoListDesktopApp is a simple WPF application to track your daily tasks.
 * Set task due date (optional)
 * Edit task
 * Mark task as completed
+* Restore task as active
 
 ### To do
 * ~~Display completed tasks~~
-* Restore task as incomplete
+* ~~Restore task as active~~
 * ~~Edit task~~
+* ~~GUI redesign using Material Design In XAML Toolkit~~
+* Simple help module
+* Button tooltips
 
 ### Technologies
 * Windows Presentation Foundation (WPF)
