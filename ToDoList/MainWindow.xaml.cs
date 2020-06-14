@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -70,9 +71,6 @@ namespace ToDoList
             StateSelected
             );
             RestoreAsActiveButton.Command = RestoreActiveCommand;
-
-            HelpCommand = new RelayCommand(obj => Help());
-            HelpButton.Command = HelpCommand;
         }
 
         RelayCommand SaveItemCommand;
@@ -233,10 +231,10 @@ namespace ToDoList
             TasksViewRefresh();
         }
 
-        RelayCommand HelpCommand;
-        private void Help()
+        private void MoreInformation_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            MessageBox.Show("Help Test!");
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

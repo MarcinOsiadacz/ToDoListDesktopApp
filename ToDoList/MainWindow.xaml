@@ -30,9 +30,9 @@
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" 
                                      StartPoint="0.5,0">
-                    <GradientStop Color="Gainsboro" 
+                    <GradientStop Color="#FF252525" 
                                   Offset="1"/>
-                    <GradientStop Color="#FFEEEEEE"/>
+                    <GradientStop Color="#FF404040"/> 
                 </LinearGradientBrush>
             </Grid.Background>
             <Grid.RowDefinitions>
@@ -41,13 +41,12 @@
             </Grid.RowDefinitions>
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="20" 
-                                  Color="#FFE2E2E2" 
                                   RenderingBias="Quality" 
-                                  ShadowDepth="1">
-                </DropShadowEffect>
+                                  ShadowDepth="1" 
+                                  Color="#FF232323"/>
             </Grid.Effect>
             <Grid Grid.Row="0"
-                  Background="#FF3F51B5">
+                  Background="#FFCDDC39">
                 <Grid Width="200"
                       HorizontalAlignment="Left"
                       VerticalAlignment="Center"
@@ -55,14 +54,14 @@
                     <materialDesign:PackIcon Kind="FormatListCheckbox"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Left"
-                                             Foreground="White" 
+                                             Foreground="Black" 
                                              Width="30" 
                                              Height="30">
                     </materialDesign:PackIcon>
                     <TextBlock Text="TO-DO LIST"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Right" 
-                               Foreground="White"
+                               Foreground="Black"
                                Style="{DynamicResource MaterialDesignHeadline5TextBlock}" FontFamily="Roboto" FontSize="30">
                     </TextBlock>
                 </Grid>
@@ -192,20 +191,20 @@
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" 
                                      StartPoint="0.5,0">
-                    <GradientStop Color="Gainsboro" 
+                    <GradientStop Color="#FF252525" 
                                   Offset="1"/>
-                    <GradientStop Color="#FFEEEEEE"/>
+                    <GradientStop Color="#FF404040"/>
                 </LinearGradientBrush>
             </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="20" 
-                                  Color="#FFE2E2E2" 
+                                  Color="#FF232323" 
                                   RenderingBias="Quality" 
                                   ShadowDepth="1">
                 </DropShadowEffect>
             </Grid.Effect>
             <Grid Grid.Row="0"
-                  Background="#FF3F51B5">
+                  Background="#FFCDDC39">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                 </Grid.RowDefinitions>
@@ -213,18 +212,22 @@
                             Height="30"
                             Orientation="Horizontal"
                             HorizontalAlignment="Right">
-                    <Button x:Name="HelpButton"
+                    <Button x:Name="MoreInformationButton"
                         Grid.Row="0"
                         Foreground="White"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Center">
-                        <materialDesign:PackIcon Kind="HelpCircleOutline"
-                                                 Foreground="White"
+                        <Hyperlink NavigateUri="https://github.com/MarcinOsiadacz/ToDoListDesktopApp#overview" 
+                                   RequestNavigate="MoreInformation_RequestNavigate"
+                                   TextDecorations="">
+                            <materialDesign:PackIcon Kind="InfoCircleOutline"
+                                                 Foreground="Black"
                                                  Height="20"
                                                  Width="20"
                                                  VerticalAlignment="Center"
                                                  HorizontalAlignment="Center">
-                        </materialDesign:PackIcon>
+                            </materialDesign:PackIcon>
+                        </Hyperlink>
                     </Button>
                 </StackPanel>
             </Grid>
