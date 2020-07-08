@@ -13,8 +13,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1024">
+        mc:Ignorable="d" Height="600" Width="1024" ResizeMode="NoResize" Title="To-Do List">
     <Window.Resources>
     </Window.Resources>
     <Grid x:Name="ParentGrid">
