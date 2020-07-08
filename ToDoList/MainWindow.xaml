@@ -112,7 +112,8 @@
                     </DatePicker>
                 </Grid>
                 <Button x:Name="SaveButton"
-                        Margin="10">
+                        Margin="10"
+                        ToolTip="Click to save changes in entered or edited task">
                     <Grid Width="100">
                         <materialDesign:PackIcon Kind="ContentSave"
                                                  VerticalAlignment="Center"
@@ -138,7 +139,8 @@
                 <Button x:Name="NewTaskButton"
                         Margin="10"
                         Width="50"
-                        Height="50">
+                        Height="50"
+                        ToolTip="Click to enter new task">
                     <materialDesign:PackIcon Kind="Add"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center" 
@@ -149,7 +151,8 @@
                 <Button x:Name="EditTaskButton"
                         Margin="10"
                         Width="50"
-                        Height="50">
+                        Height="50"
+                        ToolTip="Click to edit selected task">
                     <materialDesign:PackIcon Kind="Edit"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
@@ -160,7 +163,8 @@
                 <Button x:Name="MarkAsCompletedButton"
                         Margin="10"
                         Width="50"
-                        Height="50">
+                        Height="50"
+                        ToolTip="Click to mark task as completed">
                     <materialDesign:PackIcon Kind="Check"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
@@ -171,7 +175,8 @@
                 <Button x:Name="RestoreAsActiveButton"
                         Margin="10"
                         Width="50"
-                        Height="50">
+                        Height="50"
+                        ToolTip="Click to restore task as active">
                     <materialDesign:PackIcon Kind="Restore"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
@@ -215,7 +220,8 @@
                         Grid.Row="0"
                         Foreground="White"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        ToolTip="Click to get more information about the application">
                         <Hyperlink NavigateUri="https://github.com/MarcinOsiadacz/ToDoListDesktopApp#overview" 
                                    RequestNavigate="MoreInformation_RequestNavigate"
                                    TextDecorations="">
@@ -277,7 +283,8 @@
                         Width="50"
                         Height="50"
                         HorizontalAlignment="Right"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        ToolTip="Click to go to the previous page of tasks">
                     <materialDesign:PackIcon Kind="NavigateBefore"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
@@ -298,7 +305,8 @@
                         Width="50"
                         Height="50"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Center">
+                        VerticalAlignment="Center"
+                        ToolTip="Click to go to the next page of tasks">
                     <materialDesign:PackIcon Kind="NavigateNext"
                                              VerticalAlignment="Center"
                                              HorizontalAlignment="Center"
